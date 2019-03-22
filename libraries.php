@@ -7,6 +7,7 @@
 
   <!-- Custom scripts for all pages-->
   <script src="theme/js/sb-admin-2.min.js"></script>
+  <script src="theme/js/custom.js"></script>
 
   <!-- Font -->
   <link href="theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -14,3 +15,4 @@
 
   <!-- Custom styles for this template-->
   <link href="theme/css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="theme/css/custom.css" rel="stylesheet">

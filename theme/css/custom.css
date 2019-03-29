@@ -2,3 +2,11 @@
 {
     font-size:1.5rem;
 }
+.rightLine
+{
+    border-right: thick solid #2b2929c9;
+}
+.leftLine
+{
+    border-left: thick solid #2b2929c9;
+}

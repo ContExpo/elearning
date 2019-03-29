@@ -136,17 +136,44 @@
 				<?php else: ?>
 
 <!-- MODALS FOR GUEST USERS -->
-<div id="loginModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
 
-        <!-- Modal content-->
+<!-- LOGIN/REGISTER MODAL-->
+<div id="loginModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Login</h4>
+                <h4 class="modal-title">AdaLearning</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <p>Some text in the modal.</p>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div id="divLogin" class="col-md-6 rightLine">
+                            <form class="" action="login.php">
+                                <p class="text-center">Login</p>
+                                <label for="username">Username</label>
+                                <input type="text" name="username" id="username" class="form-control">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" id="password" class="form-control">
+                            </form>
+                            </div>
+                            <div id="divRegister" class="col-md-6">
+                            <form class="" action="register.php">
+                                <p class="text-center">Registrati</p>
+                                <label for="nome">Nome</label>
+                                <input type="text" name="nome" id="nome" class="form-control">
+                                <label for="Cognome">Cognome</label>
+                                <input type="text" name="cognome" id="cognome" class="form-control">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" id="email" class="form-control">
+                                <label for="username">Username</label>
+                                <input type="text" name="username" id="username" class="form-control">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" id="password" class="form-control">
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

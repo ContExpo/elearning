@@ -26,7 +26,9 @@
             <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-search fa-fw"></i>
             </a>
-            <?php if (isset($_SESSION["username"])) : ?>
+            <?php
+
+if (isset($_SESSION["username"])): ?>
             <!-- Dropdown - Messages -->
             <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
                 <form class="form-inline mr-auto w-100 navbar-search">
@@ -65,24 +67,26 @@
             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
             </div>
         </li>
-        <?php endif; ?>
+        <?php
+endif; ?>
         <div class="topbar-divider d-none d-sm-block"></div>
 
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 biggerText">
-					<?php 
-						if (isset($_SESSION["username"]))
-							echo $_SESSION["username"];
-						else
-							echo "Guest";
-					?>
+					<?php
+
+if (isset($_SESSION["username"])) echo $_SESSION["username"];
+else echo "Guest";
+?>
 				</span>
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <?php if (isset($_SESSION["username"])) : ?>
+                <?php
+
+if (isset($_SESSION["username"])): ?>
                 <a class="dropdown-item" href="#">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
                 </a>
@@ -97,12 +101,13 @@
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
                 </a>
                 <?php
-				else :
-				?>
+else:
+?>
                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#loginModal">
                         <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> Login
                     </a>
-                    <?php endif;?>
+                    <?php
+endif; ?>
             </div>
         </li>
 
@@ -112,7 +117,9 @@
 <!-- End of Topbar -->
 <!-- Modals -->
 
-<?php if (isset($_SESSION["username"])): ?>
+<?php
+
+if (isset($_SESSION["username"])): ?>
 <!--MODALS FOR LOGGED USERS -->
 
 <!-- Logout Modal-->
@@ -122,7 +129,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">×</span>
+			<span aria-hidden="true">Ã—</span>
 		  </button>
             </div>
             <div class="modal-body">Vuoi davvero eseguire il logout?</div>
@@ -133,7 +140,8 @@
         </div>
     </div>
 </div>
-				<?php else: ?>
+				<?php
+else: ?>
 
 <!-- MODALS FOR GUEST USERS -->
 
@@ -149,16 +157,17 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div id="divLogin" class="col-md-6 rightLine">
-                            <form class="" action="login.php">
+                            <form class="" action="login.php" method="POST">
                                 <p class="text-center">Login</p>
                                 <label for="username">Username</label>
-                                <input type="text" name="username" id="username" class="form-control">
+                                <input type="text" name="username" id="usernameLgn" class="form-control">
                                 <label for="password">Password</label>
-                                <input type="password" name="password" id="password" class="form-control">
+                                <input type="password" name="password" id="passwordLgn" class="form-control">
+                                <input type="button" value="Login" id="btnLogin" class="btn btn-primary">
                             </form>
-                            </div>
-                            <div id="divRegister" class="col-md-6">
-                            <form class="" action="register.php">
+                        </div>
+                        <div id="divRegister" class="col-md-6">
+                            <form class="" action="register.php" method="POST">
                                 <p class="text-center">Registrati</p>
                                 <label for="nome">Nome</label>
                                 <input type="text" name="nome" id="nome" class="form-control">
@@ -170,8 +179,10 @@
                                 <input type="text" name="username" id="username" class="form-control">
                                 <label for="password">Password</label>
                                 <input type="password" name="password" id="password" class="form-control">
+                                <input type="button" value="Registrati" id="btnPassword" class="btn btn-primary">
                             </form>
                         </div>
+                        <div id="divResult" class="text-center"></div>
                     </div>
                 </div>
             </div>
@@ -181,4 +192,45 @@
         </div>
     </div>
 </div>
-				<?php endif;?>
+
+<script>
+    $("#btnLogin").click(function () {
+      this.preventDefault();
+        $.ajax({
+          type: "post",
+          url: "/login.php",
+          data: {username: $("#usernameLgn").value(), password: $("#passwordLgn").value()},
+          dataType: "html",
+          success: function (response) {
+            if(response=="TRUE")
+                window.location.reload(true); 
+          }
+          else 
+          {
+                $("divResult").text("Login fallito. Ricontrollare username e password");
+          }
+        });
+        $("divResult").html('<div class="spinner-grow" role="status"><span class="sr-only">Login...</span></div>');
+    }();
+
+    $("#btnLogin").click(function () {
+      this.preventDefault();
+        $.ajax({
+          type: "post",
+          url: "/login.php",
+          data: {username: $("#usernameLgn").value(), password: $("#passwordLgn").value()},
+          dataType: "html",
+          success: function (response) {
+            if(response=="TRUE")
+                window.location.reload(true); 
+          }
+          else 
+          {
+                $("divResult").text("Login fallito. Ricontrollare username e password");
+          }
+        });
+        $("divResult").html('<div class="spinner-grow" role="status"><span class="sr-only">Login...</span></div>');
+    }();
+</script>
+
+<?php endif; ?>

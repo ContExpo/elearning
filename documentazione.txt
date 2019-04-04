@@ -1,0 +1,26 @@
+AdaLearning è una piattaforma creata per l'insegnamento della lingua inglese tramite esercizi di vario tipo, come "Fill the gap"
+oppure quesiti a risposta multipla.
+Questo documento contiene la documentazione tecnica e le istruzioni per gli utenti.
+
+DOCUMENTAZIONE TECNICA
+Il sito è sviluppato come one page application (ovvero vi è una pagina principale che viene aggiornata parzialmente al posto di
+refreshare l'intero contenuto). L'applicazione è stata sviluppata utilizzando un ambiente WAMP (Windows, Apache, MySQL and
+PHPMyAdmin). Il frontend è sviluppato con tecnologie HTML, JS (con l'ausilio di JQuery) e CSS (con l'ausilio di
+Bootstrap), mentre il backend è in linguaggio PHP. Per il database è stato usato il MySQL.
+Abbiamo scelto di sviluppare tutta la parte di backend in lingua inglese.
+
+DATABASE
+Il database contiene diverse entità:
+-Utenti
+-Esercizi
+-
+
+INSERIRE MODELLO E/R
+
+SITO WEB
+L'Index è la pagina principale della web application ed è così strutturata:
+-Una navbar superiore, contenente i bottoni di login/logout e il menù utente, oltre che i modali di tutte le pagine.
+-Una sidebar, contenente i link alle varie pagine del sito
+
+-Un footer per abbellire il sito
+-Un <div> chiamato "#scriptDiv"contenente tutti gli script JS necessari al funzionamento della pagina

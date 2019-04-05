@@ -6,7 +6,7 @@ if (isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["emai
     // verifica su eventuali errori di connessione
     if ($conn->connect_errno) {
         echo "Connessione fallita: ". $conn->connect_error . ".";
-        exit();
+        exit("Connessione fallita");
     }
     $password=crypt($_POST["password"], "stringadisalt");
     $query="INSERT INTO utenti(nome, cognome, indirizzo, citta, username, password, email) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -17,7 +17,12 @@ if (isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["emai
     $result=$sql->get_result();
     if ($result===FALSE)
     {
-        exit ("query fallita");
+        exit ("Query fallita");
     }
+    exit("success");
+}
+else
+{
+    die("Riempi tutti i campi");
 }
 ?>

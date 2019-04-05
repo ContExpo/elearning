@@ -1,7 +1,7 @@
 <?php
 function getDBConnection()
 {
-  return mysqli_connect("localhost", "root", "", "bikesharing");
+  return mysqli_connect("localhost", "root", "", "elearning");
 }
 function dateToDbFormat($date)
 {

@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (isset ($_SESSION["username"]))
+{
+    die("success");
+}
+
 if (isset($_POST["username"]) && isset($_POST["password"]))
 {
     include_once "functions.php";
@@ -8,28 +13,38 @@ if (isset($_POST["username"]) && isset($_POST["password"]))
     ///////////////////////////////////////
     $conn = getDBConnection();
     // verifica su eventuali errori di connessione
-    if ($conn->connect_errno) {
-        echo "conn fallita: ". $conn->connect_error . ".";
-        exit();
+    if ($conn->connect_errno) 
+    {
+        die("conn fallita: ". $conn->connect_error . ".");
     }
-    $sql = "SELECT username, password FROM utenti WHERE username=? AND password=?";
+    $sql = "SELECT id_user, username FROM users WHERE username=? AND password=?";
     $sql=$conn->prepare($sql);
     if($sql===false)
-    exit();
+    {
+        die("Errore nella query");
+    }
     $sql->bind_param("ss", $user, $password);
     $sql->execute();
     $result=$sql->get_result();
+    $numero=$result->num_rows;
+    $row=$result->fetch_assoc();
     if ($result===FALSE)
     {
-        exit ("query fallita");
+        die ("Query fallita");
     }
-    else if ($result->num_rows==1)
+    else if ($numero==1)
     {
-
-        $_SESSION["id"]=$_POST['username']; 
-        header('Location:/bikesharing/restituzione.php');
+        $conn->close();
+        $_SESSION["id_user"]=$row["id_user"];
+        $_SESSION["username"]=$row['username'];
+        die ("success");
     }
-    $numero=$sql->get_result()->num_rows;
-    $conn->close();
+    else
+    {
+        die ("Utente non trovato oppure credenziali non corrette");
+    }
+}
+else {
+    die ("Inserisci tutti i campi");
 }
 ?>

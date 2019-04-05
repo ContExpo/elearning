@@ -4,12 +4,15 @@
 }
 .rightLine
 {
-    border-right: thick solid #2b2929c9;
+    border-right: 1px solid #7b737350
 }
 .leftLine
 {
-    border-left: thick solid #2b2929c9;
+    border-left: 1px solid #7b737350
 }
-form .btn-primary{
+.topMargin{
     margin-top: 12px;
-} 
+}
+.bigTopMargin{
+    margin-top: 28px;
+}

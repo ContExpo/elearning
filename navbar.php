@@ -35,7 +35,7 @@ if (isset($_SESSION["username"])): ?>
                     <div class="input-group">
                         <input type="text" class="form-control bg-light border-0 small" placeholder="Cerca" aria-label="Search" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
+                            <button class="btn topMargin" type="button">
 						<i class="fas fa-search fa-sm"></i>
 					  </button>
                         </div>
@@ -135,7 +135,7 @@ if (isset($_SESSION["username"])): ?>
             <div class="modal-body">Vuoi davvero eseguire il logout?</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancella</button>
-                <a class="btn btn-primary" href="logout.php">Logout</a>
+                <a class="btn btn-primary topMargin" href="logout.php">Logout</a>
             </div>
         </div>
     </div>
@@ -157,32 +157,33 @@ else: ?>
                 <div class="container-fluid">
                     <div class="row">
                         <div id="divLogin" class="col-md-6 rightLine">
-                            <form class="" action="login.php" method="POST">
+                            <form id="frmLogin" action="login.php" method="POST">
                                 <p class="text-center">Login</p>
                                 <label for="username">Username</label>
                                 <input type="text" name="username" id="usernameLgn" class="form-control">
                                 <label for="password">Password</label>
                                 <input type="password" name="password" id="passwordLgn" class="form-control">
-                                <input type="button" value="Login" id="btnLogin" class="btn btn-primary">
+                                <input type="button" value="Login" id="btnLogin" class="btn btn-primary topMargin">
                             </form>
                         </div>
                         <div id="divRegister" class="col-md-6">
-                            <form class="" action="register.php" method="POST">
+                            <form id="frmRegister" action="register.php" method="POST">
                                 <p class="text-center">Registrati</p>
                                 <label for="nome">Nome</label>
-                                <input type="text" name="nome" id="nome" class="form-control">
+                                <input type="text" name="nome" id="nomeRgs" class="form-control">
                                 <label for="Cognome">Cognome</label>
-                                <input type="text" name="cognome" id="cognome" class="form-control">
+                                <input type="text" name="cognome" id="cognomeRgs" class="form-control">
                                 <label for="email">Email</label>
-                                <input type="email" name="email" id="email" class="form-control">
+                                <input type="email" name="email" id="emailRgs" class="form-control">
                                 <label for="username">Username</label>
-                                <input type="text" name="username" id="username" class="form-control">
+                                <input type="text" name="username" id="usernameRgs" class="form-control">
                                 <label for="password">Password</label>
-                                <input type="password" name="password" id="password" class="form-control">
-                                <input type="button" value="Registrati" id="btnPassword" class="btn btn-primary">
+                                <input type="password" name="password" id="passwordRgs" class="form-control">
+                                <input type="button" value="Registrati" id="btnPassword" class="btn btn-primary topMargin">
                             </form>
                         </div>
-                        <div id="divResult" class="text-center"></div>
+                        <div id="divResult" class="text-center col-md-12 bigTopMargin">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -194,43 +195,90 @@ else: ?>
 </div>
 
 <script>
-    $("#btnLogin").click(function () {
-      this.preventDefault();
-        $.ajax({
-          type: "post",
-          url: "/login.php",
-          data: {username: $("#usernameLgn").value(), password: $("#passwordLgn").value()},
-          dataType: "html",
-          success: function (response) {
-            if(response=="TRUE")
-                window.location.reload(true); 
-          }
-          else 
-          {
-                $("divResult").text("Login fallito. Ricontrollare username e password");
-          }
-        });
-        $("divResult").html('<div class="spinner-grow" role="status"><span class="sr-only">Login...</span></div>');
-    }();
+$("#btnLogin").click(function() 
+{
+    var exit=false;
+    $("#frmLogin").find('input[type!="hidden"], input[type!="button"]').each(function () 
+    {
+        if ($(this).val()="")
+        {
+            exit=true;
+            $("#divResult").text("Riempire tutti i campi per il login");
+            return false;
+        }
+    });
+    //this.preventDefault();
+    if (exit)
+    {
+        return false;
+    }
+    $.ajax({
+            method: "POST",
+            url: "/login.php",
+            data: 
+            {
+                username: $("#usernameLgn").val(),
+                password: $("#passwordLgn").val()
+            },
+            dataType: "text",
+            success: function(response) 
+            {
+                if (response == "success") 
+                {
+                    window.location.reload(true);
+                } 
+                else 
+                {
+                    $("#divResult").html(response);
+                }
+            },
+    });
+    $("#divResult").html('<div class="spinner-grow" role="status"><span class="sr-only"></span></div>Login...');
+});
 
-    $("#btnLogin").click(function () {
-      this.preventDefault();
-        $.ajax({
-          type: "post",
-          url: "/login.php",
-          data: {username: $("#usernameLgn").value(), password: $("#passwordLgn").value()},
-          dataType: "html",
-          success: function (response) {
-            if(response=="TRUE")
-                window.location.reload(true); 
-          }
-          else 
-          {
-                $("divResult").text("Login fallito. Ricontrollare username e password");
-          }
-        });
-        $("divResult").html('<div class="spinner-grow" role="status"><span class="sr-only">Login...</span></div>');
-    }();
+$("#btnRegister").click(function() 
+{
+    //this.preventDefault();
+    var exit=false;
+    $("#frmRegister").find('input[type!="hidden"], input[type!="button"]').each(function () 
+    {
+        if (!$(this).val()="")
+        {
+            exit=true;
+            $("#divResult").text("Riempire tutti i campi per la registrazione");
+            return false;
+        }
+    });
+    if (exit)
+    {
+        return false;
+    }
+    $.ajax({
+            method: "POST",
+            url: "/register.php",
+            data: 
+            {
+                name: $("#nameRgs").val(),
+				surname: $("#surnameRgs").val(),
+				email: $("#emailRgs").val(),
+				username: $("#usernameRgs").val(),
+				password: $("#passwordRgs").val(),
+            },
+            dataType: "text",
+            success: function(response) 
+            {
+                if (response == "success") 
+                {
+                    window.location.reload(true);
+                } 
+                else 
+                {
+                    $("#divResult").text(response);
+                }
+            },
+    });
+    $("#divResult").html('<div class="spinner-grow" role="status"><span class="sr-only">Registrazione in corso...</span></div>');
+});
 </script>
 
 <?php endif; ?>

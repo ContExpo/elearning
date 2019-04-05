@@ -19,15 +19,15 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-    <?php include "sidebar.php"?>
+    <?php include "sidebar.php" ?>
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
       <!-- Main Content -->
       <div id="content">
-
-      <?php include "navbar.php"?>
+      <?php include_once "libraries.php";
+        include_once "navbar.php"; ?>
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
@@ -37,7 +37,7 @@
       </div>
       <!-- End of Main Content -->
 
-      <?php include "footer.php"?>
+      <?php include "footer.php" ?>
 
     </div>
     <!-- End of Content Wrapper -->
@@ -51,7 +51,7 @@
   </a>
   
   <div id="scriptDiv">
-    <?php include_once "libraries.php" ?>
+    
 </div>
 
 </body>

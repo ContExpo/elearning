@@ -72,7 +72,7 @@
   
   <div id="scriptDiv">
     
-</div>
+  </div>
 
 </body>
 

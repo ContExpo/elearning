@@ -88,7 +88,7 @@ else echo "Guest";
 
 if (isset($_SESSION["username"])): ?>
                 <a class="dropdown-item" href="#">
-                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+                    <i class="pageLink fas fa-user fa-sm fa-fw mr-2 text-gray-400" data-page="/profile.php"></i> Profile
                 </a>
                 <a class="dropdown-item" href="#">
                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
@@ -129,13 +129,13 @@ if (isset($_SESSION["username"])): ?>
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">Ã—</span>
+			<span aria-hidden="true">×</span>
 		  </button>
             </div>
             <div class="modal-body">Vuoi davvero eseguire il logout?</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancella</button>
-                <a class="btn btn-primary topMargin" href="logout.php">Logout</a>
+                <a class="btn btn-primary" href="logout.php">Logout</a>
             </div>
         </div>
     </div>
@@ -157,29 +157,29 @@ else: ?>
                 <div class="container-fluid">
                     <div class="row">
                         <div id="divLogin" class="col-md-6 rightLine">
-                            <form id="frmLogin" action="login.php" method="POST">
+                            <form id="frmLogin" method="POST">
                                 <p class="text-center">Login</p>
                                 <label for="username">Username</label>
-                                <input type="text" name="username" id="usernameLgn" class="form-control">
+                                <input type="text" name="username" id="usernameLgn" class="form-control" required>
                                 <label for="password">Password</label>
-                                <input type="password" name="password" id="passwordLgn" class="form-control">
-                                <input type="button" value="Login" id="btnLogin" class="btn btn-primary topMargin">
+                                <input type="password" name="password" id="passwordLgn" class="form-control" required>
+                                <input type="submit" value="Login" id="btnLogin" class="btn btn-primary topMargin">
                             </form>
                         </div>
                         <div id="divRegister" class="col-md-6">
-                            <form id="frmRegister" action="register.php" method="POST">
+                            <form id="frmRegister" method="POST">
                                 <p class="text-center">Registrati</p>
                                 <label for="nome">Nome</label>
-                                <input type="text" name="nome" id="nomeRgs" class="form-control">
+                                <input type="text" name="nome" id="nameRgs" class="form-control" required>
                                 <label for="Cognome">Cognome</label>
-                                <input type="text" name="cognome" id="cognomeRgs" class="form-control">
+                                <input type="text" name="cognome" id="surnameRgs" class="form-control" required>
                                 <label for="email">Email</label>
-                                <input type="email" name="email" id="emailRgs" class="form-control">
+                                <input type="email" name="email" id="emailRgs" class="form-control" required>
                                 <label for="username">Username</label>
-                                <input type="text" name="username" id="usernameRgs" class="form-control">
+                                <input type="text" name="username" id="usernameRgs" class="form-control" required>
                                 <label for="password">Password</label>
-                                <input type="password" name="password" id="passwordRgs" class="form-control">
-                                <input type="button" value="Registrati" id="btnPassword" class="btn btn-primary topMargin">
+                                <input type="password" name="password" id="passwordRgs" class="form-control" required>
+                                <input type="submit" value="Registrati" id="btnRegister" class="btn btn-primary topMargin">
                             </form>
                         </div>
                         <div id="divResult" class="text-center col-md-12 bigTopMargin">
@@ -195,23 +195,21 @@ else: ?>
 </div>
 
 <script>
-$("#btnLogin").click(function() 
-{
-    var exit=false;
-    $("#frmLogin").find('input[type!="hidden"], input[type!="button"]').each(function () 
-    {
-        if ($(this).val()="")
-        {
-            exit=true;
-            $("#divResult").text("Riempire tutti i campi per il login");
-            return false;
-        }
+$(".pageLink").click(function(){
+    $.ajax({
+            method: "POST",
+            url: "/profile.php",
+            dataType: "html",
+            success: function(response) 
+            {
+                $("#divResult").html(response);
+            },
     });
-    //this.preventDefault();
-    if (exit)
-    {
-        return false;
-    }
+});
+
+$("#frmLogin").submit(function(event) 
+{
+    event.preventDefault();
     $.ajax({
             method: "POST",
             url: "/login.php",
@@ -236,23 +234,8 @@ $("#btnLogin").click(function()
     $("#divResult").html('<div class="spinner-grow" role="status"><span class="sr-only"></span></div>Login...');
 });
 
-$("#btnRegister").click(function() 
-{
-    //this.preventDefault();
-    var exit=false;
-    $("#frmRegister").find('input[type!="hidden"], input[type!="button"]').each(function () 
-    {
-        if (!$(this).val()="")
-        {
-            exit=true;
-            $("#divResult").text("Riempire tutti i campi per la registrazione");
-            return false;
-        }
-    });
-    if (exit)
-    {
-        return false;
-    }
+$("#frmRegister").submit(function(event){
+    event.preventDefault();
     $.ajax({
             method: "POST",
             url: "/register.php",
@@ -279,6 +262,7 @@ $("#btnRegister").click(function()
     });
     $("#divResult").html('<div class="spinner-grow" role="status"><span class="sr-only">Registrazione in corso...</span></div>');
 });
+</script>
 </script>
 
 <?php endif; ?>

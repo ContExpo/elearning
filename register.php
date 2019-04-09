@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["email"]) && isset($_POST["nome"]) && isset($_POST["cognome"]))
+if (isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["email"]) && isset($_POST["name"]) && isset($_POST["surname"]))
 {
     include_once "functions.php";
     $conn = getDBConnection();
@@ -9,16 +9,16 @@ if (isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["emai
         exit("Connessione fallita");
     }
     $password=crypt($_POST["password"], "stringadisalt");
-    $query="INSERT INTO utenti(nome, cognome, indirizzo, citta, username, password, email) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $query="INSERT INTO `users` (`username`, `password`, `email`, `name`, `surname`) VALUES (?, ?, ?, ?, ?)";
+    $query+="SELECT LAST_INSERT_ID() AS id_user FROM users";
     $sql = $conn->stmt_init();
     $sql->prepare ($query);
-    $sql->bind_param("sssssss", $_POST["nome"], $_POST["cognome"], $_POST["indirizzo"], $_POST["citta"], $_POST["username"], $password, $_POST["email"]);
+    $sql->bind_param("sssss", $_POST["username"], $password, $_POST["email"], $_POST["name"], $_POST["surname"]);
     $sql->execute();
-    $result=$sql->get_result();
-    if ($result===FALSE)
-    {
-        exit ("Query fallita");
-    }
+    $result=$sql->get_result()->fetch_assoc();
+    $connection->close();
+    $_SESSION["id_user"]=$row["id_user"];
+    $_SESSION["username"]=$_POST['username'];
     exit("success");
 }
 else

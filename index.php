@@ -30,7 +30,7 @@
         include_once "navbar.php"; ?>
 
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div id="contentDiv" class="container-fluid">
 
         </div>
 
@@ -51,7 +51,28 @@
   </a>
   
   <div id="scriptDiv">
-    
+    <script>
+      $(".pageLink").click(function(){
+        var link = this.getAttribute("data-page");
+        if (!link)
+        {
+          return false;
+        }
+        if (link[0]!="/" && link[0]!="\\")
+        {
+          link= "/" + link;
+        }
+        $.ajax({
+              method: "POST",
+              url: link,
+              dataType: "html",
+              success: function(response) 
+              {
+                  $("#contentDiv").html(response);
+              },
+        });
+  });
+    </script>
   </div>
 
 </body>

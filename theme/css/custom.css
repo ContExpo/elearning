@@ -16,3 +16,16 @@
 .bigTopMargin{
     margin-top: 28px;
 }
+.pageLink{
+    cursor: pointer;
+}
+
+.pointer{
+    cursor: pointer;
+}
+#searchInput{
+    height: 38px;
+}
+h1,h2,h3,h4,h5,h6{
+    color: #428bca;
+}

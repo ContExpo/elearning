@@ -31,27 +31,7 @@
 
         <!-- Begin Page Content -->
         <div id="contentDiv" class="container-fluid">
-
-
-				  <b><h1> Clicca sul pulsante qua sotto per vedere il tuo profilo!</h1><br>
-              <a href="profilo.php">
-               <strong>VISUALIZZA PROFILO </strong>
-              </a>
-          </div>
-
-          <b><h1>Eseguoi il login o registrati per poter iniziare un test!!</h1><br>
-              <a href="test.php">
-               <strong> INIZIA TEST </strong>
-              </a>
-          </div>
-
-          <b><h1> Clicca sul pulsante qua sotto per vedere le tue statistiche!</h1><br>
-              <a href="statistiche.php">
-               <strong>VISUALIZZA STATISTICHE </strong>
-              </a>
-          </div>
-
-
+          <?php include_once "dashboard.php" ?>
         </div>
 
       </div>
@@ -88,7 +68,14 @@
               dataType: "html",
               success: function(response) 
               {
+                if (response=="not logged")
+                {
+                  $("#loginModal").modal('show');
+                }
+                else
+                {
                   $("#contentDiv").html(response);
+                }
               },
         });
   });

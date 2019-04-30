@@ -1,5 +1,4 @@
 <?php
-session_start();
 include_once "loggedCheck.php";
 
 include_once "functions.php";
@@ -12,8 +11,8 @@ if ($conn->connect_errno)
 
 //Inizio la transazione
 
-$conn->autocommit(FALSE);
-$conn->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+//$conn->autocommit(FALSE);
+//$conn->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
 
 //Inserisco il nuovo esercizio
 $sql = "INSERT INTO `exercises` (`id_user`, `date`, `score`, `status`) VALUES (?, NOW(), NULL, 'S');";
@@ -24,7 +23,7 @@ if($sql===false)
 }
 $sql->bind_param("i", $_SESSION["id_user"]);
 $sql->execute();
-
+echo "messo esercizio\n";
 //Seleziono l'id dell'esercizio
 $sql = "SELECT LAST_INSERT_ID() AS id_exercise FROM exercises";
 $sql=$conn->prepare($sql);
@@ -50,6 +49,7 @@ while ($row=$result->fetch_assoc())
 {
     $array[]=$row["id_question"];   //In array ci sono gli id
 }
+echo "selezionate domande\n";
 //Inserisco i collegamenti tra esercizio e frasi
 $sql="INSERT INTO `elearning`.`links` (`id_exercise`, `id_question`, `correct`) VALUES (?, ?, NULL)"; 
 $sql=$conn->prepare($sql);
@@ -63,4 +63,5 @@ foreach ($array as $value)
     $sql->bind_param("ii", $id_exercise, $value);
     $sql->execute();
 }
+echo "inseriti collegamenti\n";
 ?>

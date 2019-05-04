@@ -23,7 +23,6 @@ if($sql===false)
 }
 $sql->bind_param("i", $_SESSION["id_user"]);
 $sql->execute();
-echo "messo esercizio\n";
 //Seleziono l'id dell'esercizio
 $sql = "SELECT LAST_INSERT_ID() AS id_exercise FROM exercises";
 $sql=$conn->prepare($sql);
@@ -49,7 +48,6 @@ while ($row=$result->fetch_assoc())
 {
     $array[]=$row["id_question"];   //In array ci sono gli id
 }
-echo "selezionate domande\n";
 //Inserisco i collegamenti tra esercizio e frasi
 $sql="INSERT INTO `elearning`.`links` (`id_exercise`, `id_question`, `correct`) VALUES (?, ?, NULL)"; 
 $sql=$conn->prepare($sql);
@@ -63,5 +61,5 @@ foreach ($array as $value)
     $sql->bind_param("ii", $id_exercise, $value);
     $sql->execute();
 }
-echo "inseriti collegamenti\n";
+die ($id_exercise);
 ?>

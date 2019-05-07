@@ -62,39 +62,64 @@
         {
           link= "/" + link;
         }
-        $.ajax({
-              method: "POST",
-              url: link,
-              dataType: "html",
-              success: function(response) 
+          $.ajax({
+            method: "POST",
+            url: link,
+            dataType: "html",
+            success: function(response) 
+            {
+              if (response=="not logged")
               {
-                if (response=="not logged")
-                {
-                  $("#loginModal").modal('show');
-                }
-                else if (response=="error")
-                {
-                  showErrorPage();
-                }
-                else
-                {
-                  $("#contentDiv").html(response);
-                }
-              },
-        });
-  });
-  function showErrorPage()
-  {
-    $.ajax({
-              method: "POST",
-              url: '404.php',
-              dataType: "html",
-              success: function(response)
+                $("#loginModal").modal('show');
+              }
+
+			  //SE STO CREANDO UN NUOVO ESERCIZIO
+
+              else if (trimChar(link, "/")=="new_exercise.php")
+              {
+                $.ajax({
+                  method: "GET",
+                  url: "/exercise.php",
+                  dataType: "html",
+                  data: {
+                    'id': response
+                  },
+                  success: function(response) 
+                  {
+                    $("#contentDiv").html(response);
+                  }
+              }
+              else
               {
                 $("#contentDiv").html(response);
               }
+            }
+          });
     });
-  }
+
+	function showErrorPage()
+  	{
+		$.ajax({
+				method: "POST",
+				url: '404.php',
+				dataType: "html",
+				success: function(response)
+				{
+					$("#contentDiv").html(response);
+				}
+		});
+  	}
+  	function trimChar(string, charToRemove) 
+  	{
+		while(string.charAt(0)==charToRemove) {
+			string = string.substring(1);
+		}
+		while(string.charAt(string.length-1)==charToRemove) {
+			string = string.substring(0,string.length-1);
+		}
+		return string;
+  	}
+
     </script>
   </div>
 

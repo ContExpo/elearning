@@ -19,7 +19,7 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-    <?php include "sidebar.php" ?>
+	<?php include "sidebar.php"?>
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -72,6 +72,10 @@
                 {
                   $("#loginModal").modal('show');
                 }
+                else if (response=="error")
+                {
+                  showErrorPage();
+                }
                 else
                 {
                   $("#contentDiv").html(response);
@@ -79,6 +83,18 @@
               },
         });
   });
+  function showErrorPage()
+  {
+    $.ajax({
+              method: "POST",
+              url: '404.php',
+              dataType: "html",
+              success: function(response)
+              {
+                $("#contentDiv").html(response);
+              }
+    });
+  }
     </script>
   </div>
 

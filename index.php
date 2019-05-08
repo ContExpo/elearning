@@ -59,6 +59,7 @@
                 if (!link) {
                     return false;
                 }
+                //$("#loadingModal").modal("show");
                 if (link[0] != "/" && link[0] != "\\") {
                     link = "/" + link;
                 }
@@ -87,16 +88,18 @@
                                     'id': response
                                 },
                                 success: function(response) {
+                                    //$("#loadingModal").modal("hide");
                                     $("#contentDiv").html(response);
                                 }
                             });
                         } 
 						else 
 						{
+                            //$("#loadingModal").modal("hide");
                             $("#contentDiv").html(response);
                         }
                     }
-                });
+                })
 			
 		}
 

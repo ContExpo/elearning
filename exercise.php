@@ -19,7 +19,7 @@ include_once "functions.php";
     <div class="col-md-10 offset-md-1">
         <h3>Nuovo esercizio</h3>
         <div>
-        <form>
+        <form id="testForm">
         <?
         $conn = getDBConnection();
         if ($conn->connect_errno) 
@@ -79,8 +79,14 @@ include_once "functions.php";
             printf($answer, $row["solution"]);
         }
         ?>
-        
+        <button class="btn-success" onclick="submitExercise();">
         </form>
         </div>
     </div>
 </div>
+<script>
+function submitExercise()
+{
+
+}
+</script>

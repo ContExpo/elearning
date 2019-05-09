@@ -81,14 +81,19 @@ include_once "functions.php";
             echo '</p>';
         }
         ?>
-        <button class="btn-success" onclick="submitExercise();">
+        <button type="submit" class="btn-success" id="btnSubmit">
         </form>
         </div>
     </div>
 </div>
 <script>
-function submitExercise()
-{
-
-}
+$("#btnSubmit").click(e, function({
+    e.preventDefault();
+    $("#testForm>input, #testForm>select").each(function( index ) {
+        if (!this.val())
+		{
+			this.val("vuoto");
+		}
+    });
+}));
 </script>

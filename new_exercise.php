@@ -61,5 +61,6 @@ foreach ($array as $value)
     $sql->bind_param("ii", $id_exercise, $value);
     $sql->execute();
 }
-die ($id_exercise);
+echo $id_exercise;
+exit;
 ?>

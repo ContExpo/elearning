@@ -114,6 +114,24 @@ endif; ?>
 <!-- End of Topbar -->
 <!-- Modals -->
 
+<div id="loadingModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body text-center">
+                <p class="align-middle"> Caricamento</p>
+                <div class="spinner-border" role="status">
+                    <span class="sr-only"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <?php
 
 if (isset($_SESSION["username"])): ?>

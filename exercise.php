@@ -19,15 +19,15 @@ include_once "functions.php";
     <div class="col-md-10 offset-md-1">
         <h3>Nuovo esercizio</h3>
         <div>
-        <form id="testForm">
-        <?
+        <form id="testForm" method="POST" action="./submit_test.php">
+        <?php
         $conn = getDBConnection();
         if ($conn->connect_errno) 
         {
             die("conn fallita: ". $conn->connect_error . ".");
         }
         
-        $sql = "SELECT q.* FROM links AS l, questions AS q WHERE (l.id_question=q.id_question AND (id_exercise=?))";
+        $sql = "SELECT q.* FROM links AS l, questions AS q WHERE (l.id_question=q.id_question AND (id_exercise=?)) ORDER BY q.id_question";
         
         $sql=$conn->prepare($sql);
         if($sql===false)
@@ -41,7 +41,7 @@ include_once "functions.php";
         $dropdownRow = "<option value='%s'>%s</option>";
         $textbox ='<input type="text" name="answer[]" class="form-control-md">';
         $hidden= '<input type="hidden" name="answer_id[]" value="%d">';
-        $answer= '<input type="hidden" name="answer[]" value="%s">';
+        $solution= '<input type="hidden" name="solution[]" value="%s">';
         
         while($row = $result->fetch_assoc())
         {
@@ -77,18 +77,15 @@ include_once "functions.php";
             }
             echo '<p class="exerciseDiv">'.stripslashes ($text);
             printf($hidden, $row["id_question"]);
-            printf($answer, $row["solution"]);
+            printf($solution, $row["solution"]);
             echo '</p>';
         }
         ?>
-        <button class="btn-success" onclick="submitExercise();">
+        <button type="submit" class="btn btn-primary exerciseDiv">Submit your exam</button>
         </form>
         </div>
     </div>
 </div>
 <script>
-function submitExercise()
-{
 
-}
 </script>

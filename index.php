@@ -54,7 +54,7 @@
     <div id="scriptDiv">
         <script>
 
-			$("body").on("click", ".pageLink", function() {
+			$(".contentDiv").on("click", ".pageLink", function() {
                 var link = this.getAttribute("data-page");
                 if (!link) {
                     return false;

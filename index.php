@@ -54,8 +54,8 @@
     <div id="scriptDiv">
         <script>
             $(document).ready(function() {
-            var redirect = $.urlParam('page')
-            if (redirect)) {
+            var redirect = $.urlParam('page');
+            if (redirect) {
             doAjaxCall(redirect);
         }
         });

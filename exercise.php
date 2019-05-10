@@ -20,7 +20,7 @@ include_once "functions.php";
         <h3>Nuovo esercizio</h3>
         <div>
         <form id="testForm" method="POST" action="./submit_test.php">
-        <input type="hidden" name="id_exercise" value="<?php echo $_GET["id"])?>">
+        <input type="hidden" name="id_exercise" value="<?php echo $_GET["id"]?>">
         <?php
         $conn = getDBConnection();
         if ($conn->connect_errno) 

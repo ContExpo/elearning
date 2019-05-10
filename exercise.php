@@ -87,5 +87,17 @@ include_once "functions.php";
     </div>
 </div>
 <script>
+<<<<<<< HEAD
 
+=======
+$("#btnSubmit").click(e, function({
+    e.preventDefault();
+    $("#testForm>input, #testForm>select").each(function( index ) {
+        if (!this.val())
+		{
+			this.val("vuoto");
+		}
+    });
+}));
+>>>>>>> d6ebcbcb49534048031a65b54d01dd85d4e02e5e
 </script>

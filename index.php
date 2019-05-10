@@ -53,15 +53,8 @@
 
     <div id="scriptDiv">
         <script>
-            $(document).ready(function() {
-            var redirect = $.urlParam('page');
-            if (redirect) {
-            doAjaxCall(redirect);
-        }
-        });
 
-
-        $(".contentDiv").on("click", ".pageLink", function() {
+        $("body").on("click", ".pageLink", function() {
             var link = this.getAttribute("data-page");
             if (!link) {
                 return false;
@@ -69,6 +62,13 @@
             //$("#loadingModal").modal("show");
             doAjaxCall(link);
         });
+
+        $.urlParam = function(name) {
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)')
+                .exec(window.location.search);
+
+            return (results !== null) ? results[1] || 0 : false;
+        }
 
         function doAjaxCall(link) {
             if (link[0] != "/" && link[0] != "\\") {
@@ -126,12 +126,11 @@
             return string;
         }
 
-        $.urlParam = function(name) {
-            var results = new RegExp('[\?&]' + name + '=([^&#]*)')
-                .exec(window.location.search);
-
-            return (results !== null) ? results[1] || 0 : false;
-        }
+        $(document).ready(function() {
+            var redirect = $.urlParam('page');
+            if (redirect) {
+            doAjaxCall(redirect);
+        }});
         </script>
     </div>
 

@@ -30,7 +30,7 @@
       <li class="nav-item">
         <a class="nav-link pageLink" data-page="404.php">
         <i class="fas fa-dumbbell"></i>
-          <span>Foto del miglior professore al mondo (Villy)</span></a>
+          <span>Foto del miglior professore al mondo</span></a>
       </li>
       
       <hr class="sidebar-divider d-none d-md-block">

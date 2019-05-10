@@ -16,7 +16,7 @@
     $score=0;
     for ($i=0; $i<count($answer); $i++)
     {
-        if ($answer[$i]==$solution[$i])
+        if (strtolower(trim($answer[$i]))==trim(strtolower($solution[$i])))
         {
             $score++;
         }
@@ -25,7 +25,6 @@
     $sql="UPDATE exercises SET score=? WHERE (id_exercise=?)";
     $sql=$conn->prepare($sql);
     $sql->bind_param("ii", $score, $_POST["id_exercise"]);
-    echo "Punteggio:".$score."/10"
-    //$sql->execute();
-    //header("location: index.php?page=exercises.php")
+    $sql->execute();
+    header("location: index.php?page=exercises.php")
 ?>

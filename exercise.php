@@ -38,7 +38,7 @@ include_once "functions.php";
         $sql->bind_param("i", $id);
         $sql->execute();
         $result=$sql->get_result();
-        $dropdown ='<select class= "form-control-md" name="answer[]"';
+        echo "dioporco";
         $dropdownRow = "<option value='%s'>%s</option>";
         $textbox ='<input type="text" name="answer[]" class="form-control-md">';
         $hidden= '<input type="hidden" name="answer_id[]" value="%d">';
@@ -49,7 +49,7 @@ include_once "functions.php";
             switch (strtolower($row["type"]))  //Domanda a scelta multipla
             {
             case "m":   //Scelta multipla
-                $dropdown ='<select class= "form-control-md" name="answer[]"';
+            $dropdown ='<select class= "form-control-md" name="answer[]"><option selected="selected" disabled="disabled" value="">Seleziona una risposta...</option>';
                 $sql = "SELECT * FROM multiple_choices WHERE id_question=?";
                 $sql=$conn->prepare($sql);
                 if($sql===false)

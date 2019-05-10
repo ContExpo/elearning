@@ -28,7 +28,7 @@ include_once "functions.php";
             {
                 echo '<table class="table table-bordered hoverable text-center">';
                 echo "<thead class='thead-light'><th>ID esercizio</th><th>Data</th><th>Punteggio</th><th> </th></thead>";
-                $riga="<tr><td>%d</td><td>%s</td><td>%d</td><td> <button class='btn pageLink' data-page='exercise.php?id=%d'>Rifai il test</button></td></tr>";
+                $riga="<tr><td>%d</td><td>%s</td><td>%d/10</td><td> <button class='btn pageLink' data-page='exercise.php?id=%d'>Rifai il test</button></td></tr>";
                 while($row=$result->fetch_assoc())
                 {
                     printf($riga, $row["id_exercise"], dateToRenderFormat($row["date"]), $row["score"], $row["id_exercise"]);

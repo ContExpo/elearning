@@ -20,6 +20,7 @@ include_once "functions.php";
         <h3>Nuovo esercizio</h3>
         <div>
         <form id="testForm" method="POST" action="./submit_test.php">
+        <input type="hidden" name="id_exercise" value="<?php echo $_GET["id"])?>">
         <?php
         $conn = getDBConnection();
         if ($conn->connect_errno) 
@@ -87,9 +88,7 @@ include_once "functions.php";
     </div>
 </div>
 <script>
-<<<<<<< HEAD
 
-=======
 $("#btnSubmit").click(e, function({
     e.preventDefault();
     $("#testForm>input, #testForm>select").each(function( index ) {
@@ -99,5 +98,5 @@ $("#btnSubmit").click(e, function({
 		}
     });
 }));
->>>>>>> d6ebcbcb49534048031a65b54d01dd85d4e02e5e
+
 </script>

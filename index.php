@@ -53,77 +53,85 @@
 
     <div id="scriptDiv">
         <script>
+            $(document).ready(function() {
+            var redirect = $.urlParam('page')
+            if (redirect)) {
+            doAjaxCall(redirect);
+        }
+        });
 
-			$(".contentDiv").on("click", ".pageLink", function() {
-                var link = this.getAttribute("data-page");
-                if (!link) {
-                    return false;
-                }
-                //$("#loadingModal").modal("show");
-                if (link[0] != "/" && link[0] != "\\") {
-                    link = "/" + link;
-                }
-				doAjaxCall(link);
-			});
 
-        function doAjaxCall(link)
-		{
-			$.ajax({
-                    method: "POST",
-                    url: link,
-                    dataType: "html",
-                    success: function(response) {
-                        if (response == "not logged") {
-                            $("#loginModal").modal('show');
-                        }
+        $(".contentDiv").on("click", ".pageLink", function() {
+            var link = this.getAttribute("data-page");
+            if (!link) {
+                return false;
+            }
+            //$("#loadingModal").modal("show");
+            doAjaxCall(link);
+        });
 
-                        //SE STO CREANDO UN NUOVO ESERCIZIO
-                        else if (trimChar(link, "/") == "new_exercise.php") 
-						{
-                            $.ajax({
-                                method: "GET",
-                                url: "/exercise.php",
-                                dataType: "html",
-                                data: {
-                                    'id': response
-                                },
-                                success: function(response) {
-                                    //$("#loadingModal").modal("hide");
-                                    $("#contentDiv").html(response);
-                                }
-                            });
-                        } 
-						else 
-						{
-                            //$("#loadingModal").modal("hide");
-                            $("#contentDiv").html(response);
-                        }
+        function doAjaxCall(link) {
+            if (link[0] != "/" && link[0] != "\\") {
+                link = "/" + link;
+            }
+            $.ajax({
+                method: "POST",
+                url: link,
+                dataType: "html",
+                success: function(response) {
+                    if (response == "not logged") {
+                        $("#loginModal").modal('show');
                     }
-                })
-			
-		}
 
-            function showErrorPage() {
-                $.ajax({
-                    method: "POST",
-                    url: '404.php',
-                    dataType: "html",
-                    success: function(response) {
+                    //SE STO CREANDO UN NUOVO ESERCIZIO
+                    else if (trimChar(link, "/") == "new_exercise.php") {
+                        $.ajax({
+                            method: "GET",
+                            url: "/exercise.php",
+                            dataType: "html",
+                            data: {
+                                'id': response
+                            },
+                            success: function(response) {
+                                //$("#loadingModal").modal("hide");
+                                $("#contentDiv").html(response);
+                            }
+                        });
+                    } else {
+                        //$("#loadingModal").modal("hide");
                         $("#contentDiv").html(response);
                     }
-                });
-            }
-
-            function trimChar(string, charToRemove) {
-                while (string.charAt(0) == charToRemove) {
-                    string = string.substring(1);
                 }
-                while (string.charAt(string.length - 1) == charToRemove) {
-                    string = string.substring(0, string.length - 1);
-                }
-                return string;
-            }
+            })
+        }
 
+        function showErrorPage() {
+            $.ajax({
+                method: "POST",
+                url: '404.php',
+                dataType: "html",
+                success: function(response) {
+                    $("#contentDiv").html(response);
+                }
+            });
+        }
+
+        function trimChar(string, charToRemove) {
+            while (string.charAt(0) == charToRemove) {
+                string = string.substring(1);
+            }
+            while (string.charAt(string.length - 1) == charToRemove) {
+                string = string.substring(0, string.length - 1);
+            }
+            return string;
+        }
+
+        $.urlParam = function(name) {
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)')
+                .exec(window.location.search);
+
+            return (results !== null) ? results[1] || 0 : false;
+        }
         </script>
     </div>
 
